@@ -1,0 +1,12 @@
+input {
+  outline: none;
+  border-width: 2px;
+}
+
+input:valid {
+  border-color: green;
+}
+
+input:invalid {
+  border-color: red;
+}
