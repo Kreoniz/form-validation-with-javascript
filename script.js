@@ -8,6 +8,7 @@ const zip = document.querySelector('#zip');
 const zipError = document.querySelector('#zip + span.error');
 const password = document.querySelector('#password');
 const confirmPassword = document.querySelector('#confirm-password');
+const passwordError = document.querySelector('#password-error');
 
 const submitBtn = document.querySelector('#submit-btn');
 
@@ -73,18 +74,64 @@ zip.addEventListener("input", () => {
   zipError.textContent = message !== 'valid' ? message : '';
 });
 
+function checkPasswordValidity(node) {
+  if (node.value.length === 0) {
+    node.setCustomValidity('Empty field');
+    return 'You should enter a password.';
+  } else if (node.validity.valueMissing) {
+    node.setCustomValidity('Empty field');
+    return 'You should enter a password.';
+  } else if (node.value.length < 8) {
+    node.setCustomValidity('Too short');
+    return 'Password should be at least 8 characters long.';
+  } else if (!/(.*[0-9]){2,}/.test(node.value)) {
+    node.setCustomValidity('Weak password');
+    return 'Password should contain at least 2 digits.';
+  } else {
+    node.setCustomValidity('');
+    return 'valid';
+  }
+}
+
+function checkPasswordSimilarity() {
+  if (checkPasswordValidity(password) === 'valid') {
+    if (password.value === confirmPassword.value) {
+      confirmPassword.setCustomValidity('');
+      passwordError.textContent = '';
+      return true;
+    } else {
+      confirmPassword.setCustomValidity('Passwords differ');
+      passwordError.textContent = 'Passwords differ.';
+      return false;
+    }
+  }
+}
+
+password.addEventListener("input", () => {
+  const message = checkPasswordValidity(password);
+  passwordError.textContent = message !== 'valid' ? message : '';
+});
+
+confirmPassword.addEventListener("input", () => {
+  checkPasswordSimilarity();
+});
+
 form.addEventListener('submit', (e) => {
   const emailPassed = checkEmailValidity(email);
   const countryPassed = checkCountryValidity(country);
   const zipPassed = checkZipValidity(zip);
+  const passwordPassed = checkPasswordValidity(password);
 
-  console.log(emailPassed);
   if (emailPassed !== 'valid') {
     emailError.textContent = emailPassed;
   } if (countryPassed !== 'valid') {
     countryError.textContent = countryPassed;
   } if (zipPassed !== 'valid') {
     zipError.textContent = zipPassed;
+  } if (passwordPassed !== 'valid') {
+    passwordError.textContent = passwordPassed;
+  } else if (!checkPasswordSimilarity()) {
+    passwordError.textContent = 'Passwords differ.';
   } else {
     console.log('submitted');
   }
