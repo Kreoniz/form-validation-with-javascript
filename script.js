@@ -14,81 +14,84 @@ const submitBtn = document.querySelector('#submit-btn');
 
 const zipRegExp = /^\d{6}$/;
 
-function checkEmailValidity(node) {
+function checkEmailValidity(node, errorNode) {
+  let message = 'valid';
   if (node.value.length === 0) {
-    node.setCustomValidity('Empty field');
-    return 'You should enter an email address.';
-  } if (node.validity.valueMissing) {
-    node.setCustomValidity('Empty field');
-    return 'You should enter an email address.';
+    message = 'You should enter an email address.';
   } else if (node.validity.typeMismatch) {
-    node.setCustomValidity('Invalid email address');
-    return 'You should enter a valid email address.';
+    message = 'You should enter a valid email address.';
+  }
+
+  if (message === 'valid') {
+    node.classList.remove('invalid');
+    errorNode.classList.remove('active');
+    return '';
   } else {
-    node.setCustomValidity('');
-    return 'valid';
+    node.classList.add('invalid');
+    errorNode.classList.add('active');
+    return message;
   }
 }
 
 email.addEventListener("input", () => {
-  const message = checkEmailValidity(email);
-  emailError.textContent = message !== 'valid' ? message : '';
+  const message = checkEmailValidity(email, emailError);
+  emailError.textContent = message;
 });
 
-function checkCountryValidity(node) {
+function checkCountryValidity(node, errorNode) {
+  let message = 'valid';
   if (node.value.length === 0) {
-    node.setCustomValidity('Empty field');
-    return 'You should enter a country name.';
-  } else if (node.validity.valueMissing) {
-    node.setCustomValidity('Empty field');
-    return 'You should enter a country name.';
+    message = 'You should enter a country name.';
+  }
+
+  if (message === 'valid') {
+    node.classList.remove('invalid');
+    errorNode.classList.remove('active');
+    return '';
   } else {
-    node.setCustomValidity('');
-    return 'valid';
+    node.classList.add('invalid');
+    errorNode.classList.add('active');
+    return message;
   }
 }
 
 country.addEventListener("input", () => {
-  const message = checkCountryValidity(country);
-  countryError.textContent = message !== 'valid' ? message : '';
+  const message = checkCountryValidity(country, countryError);
+  countryError.textContent = message;
 });
 
-function checkZipValidity(node) {
+function checkZipValidity(node, errorNode) {
+  let message = 'valid';
   if (node.value.length === 0) {
-    node.setCustomValidity('Empty field');
-    return 'You should enter a ZIP code.';
-  } else if (node.validity.valueMissing) {
-    node.setCustomValidity('Empty field');
-    return 'You should enter a ZIP code.';
-  } else if (!zipRegExp.test(node.value)) {
-    node.setCustomValidity('Invalid ZIP code');
-    return 'ZIP code should consist of 6 digits';
+    message = 'You should enter a ZIP code.';
+  }  else if (!zipRegExp.test(node.value)) {
+    message = 'ZIP code should consist of 6 digits';
+  }
+
+  if (message === 'valid') {
+    node.classList.remove('invalid');
+    errorNode.classList.remove('active');
+    return '';
   } else {
-    node.setCustomValidity('');
-    return 'valid';
+    node.classList.add('invalid');
+    errorNode.classList.add('active');
+    return message;
   }
 }
 
 zip.addEventListener("input", () => {
-  const message = checkZipValidity(zip);
-  zipError.textContent = message !== 'valid' ? message : '';
+  const message = checkZipValidity(zip, zipError);
+  zipError.textContent = message;
 });
 
 function checkPasswordValidity(node) {
   if (node.value.length === 0) {
-    node.setCustomValidity('Empty field');
-    return 'You should enter a password.';
-  } else if (node.validity.valueMissing) {
-    node.setCustomValidity('Empty field');
     return 'You should enter a password.';
   } else if (node.value.length < 8) {
-    node.setCustomValidity('Too short');
     return 'Password should be at least 8 characters long.';
   } else if (!/(.*[0-9]){2,}/.test(node.value)) {
-    node.setCustomValidity('Weak password');
     return 'Password should contain at least 2 digits.';
   } else {
-    node.setCustomValidity('');
     return 'valid';
   }
 }
@@ -96,11 +99,9 @@ function checkPasswordValidity(node) {
 function checkPasswordSimilarity() {
   if (checkPasswordValidity(password) === 'valid') {
     if (password.value === confirmPassword.value) {
-      confirmPassword.setCustomValidity('');
       passwordError.textContent = '';
       return true;
     } else {
-      confirmPassword.setCustomValidity('Passwords differ');
       passwordError.textContent = 'Passwords differ.';
       return false;
     }
@@ -117,9 +118,9 @@ confirmPassword.addEventListener("input", () => {
 });
 
 form.addEventListener('submit', (e) => {
-  const emailPassed = checkEmailValidity(email);
-  const countryPassed = checkCountryValidity(country);
-  const zipPassed = checkZipValidity(zip);
+  const emailPassed = checkEmailValidity(email, emailError);
+  const countryPassed = checkCountryValidity(country, countryError);
+  const zipPassed = checkZipValidity(zip, zipError);
   const passwordPassed = checkPasswordValidity(password);
 
   if (emailPassed !== 'valid') {

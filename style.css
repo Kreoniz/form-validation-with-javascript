@@ -1,12 +1,54 @@
-input {
-  outline: none;
-  border-width: 2px;
+:root {
+  --error: #900;
 }
 
-input:valid {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 50px;
+}
+
+form {
+  width: 200px;
+  margin: auto;
+}
+
+input {
+  appearance: none;
+
+  width: 100%;
+  outline: none;
+  border-width: 2px;
+
   border-color: green;
 }
 
-input:invalid {
-  border-color: red;
+input.invalid {
+  border-color: var(--error);
+}
+
+.field {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+span.error {
+  display: block;
+  width: 100%;
+  padding: 0;
+
+  font-size: 80%;
+  background-color: var(--error);
+  color: #fff;
+  border-radius: 0 0 5px 5px;
+
+  box-sizing: border-box;
+}
+
+.error.active {
+  padding: 0.3rem;
 }
