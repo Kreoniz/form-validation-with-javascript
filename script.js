@@ -7,8 +7,9 @@ const countryError = document.querySelector('#country + span.error');
 const zip = document.querySelector('#zip');
 const zipError = document.querySelector('#zip + span.error');
 const password = document.querySelector('#password');
-const confirmPassword = document.querySelector('#confirm-password');
 const passwordError = document.querySelector('#password-error');
+const confirmPassword = document.querySelector('#confirm-password');
+const confirmPasswordError = document.querySelector('#confirm-password-error');
 
 const submitBtn = document.querySelector('#submit-btn');
 
@@ -84,33 +85,48 @@ zip.addEventListener("input", () => {
   zipError.textContent = message;
 });
 
-function checkPasswordValidity(node) {
-  if (node.value.length === 0) {
-    return 'You should enter a password.';
-  } else if (node.value.length < 8) {
-    return 'Password should be at least 8 characters long.';
-  } else if (!/(.*[0-9]){2,}/.test(node.value)) {
-    return 'Password should contain at least 2 digits.';
-  } else {
-    return 'valid';
+function checkPasswordValidity() {
+  let message = 'valid';
+  if (password.value.length === 0) {
+    message = 'You should enter a password.';
+  } else if (password.value.length < 8) {
+    message = 'Password should be at least 8 characters long.';
+  } else if (!/(.*[0-9]){2,}/.test(password.value)) {
+    message = 'Password should contain at least 2 digits.';
   }
+
+  if (message === 'valid') {
+    password.classList.remove('invalid');
+    passwordError.classList.remove('active');
+    passwordError.textContent = '';
+  } else {
+    password.classList.add('invalid');
+    passwordError.classList.add('active');
+    passwordError.textContent = message;
+  }
+
+  return message;
 }
 
 function checkPasswordSimilarity() {
   if (checkPasswordValidity(password) === 'valid') {
     if (password.value === confirmPassword.value) {
-      passwordError.textContent = '';
+      confirmPasswordError.textContent = '';
+      confirmPassword.classList.remove('invalid');
+      confirmPasswordError.classList.remove('active');
       return true;
     } else {
-      passwordError.textContent = 'Passwords differ.';
+      confirmPasswordError.textContent = 'Passwords differ.';
+      confirmPassword.classList.add('invalid');
+      confirmPasswordError.classList.add('active');
       return false;
     }
   }
 }
 
 password.addEventListener("input", () => {
-  const message = checkPasswordValidity(password);
-  passwordError.textContent = message !== 'valid' ? message : '';
+  checkPasswordValidity();
+  checkPasswordSimilarity();
 });
 
 confirmPassword.addEventListener("input", () => {
@@ -121,7 +137,7 @@ form.addEventListener('submit', (e) => {
   const emailPassed = checkEmailValidity(email, emailError);
   const countryPassed = checkCountryValidity(country, countryError);
   const zipPassed = checkZipValidity(zip, zipError);
-  const passwordPassed = checkPasswordValidity(password);
+  const passwordPassed = checkPasswordValidity();
 
   if (emailPassed !== 'valid') {
     emailError.textContent = emailPassed;
@@ -132,7 +148,7 @@ form.addEventListener('submit', (e) => {
   } if (passwordPassed !== 'valid') {
     passwordError.textContent = passwordPassed;
   } else if (!checkPasswordSimilarity()) {
-    passwordError.textContent = 'Passwords differ.';
+    confirmPasswordError.textContent = 'Passwords differ.';
   } else {
     console.log('submitted');
   }

@@ -26,12 +26,17 @@
       </div>
 
       <div class="password-field">
-        <label for="password">Password: </label>
-        <input id="password" type="password">
+        <div class="field">
+          <label for="password">Password: </label>
+          <input id="password" type="password">
+          <span id="password-error" class="error" aria-live="polite"></span>
+        </div>
 
-        <label for="confirm-password">Confirm password: </label>
-        <input id="confirm-password" type="password">
-        <span id="password-error" class="error" aria-live="polite"></span>
+        <div class="field">
+          <label for="confirm-password">Confirm password: </label>
+          <input id="confirm-password" type="password">
+          <span id="confirm-password-error" class="error" aria-live="polite"></span>
+        </div>
       </div>
 
       <button id="submit-btn" type="submit">Submit</button>

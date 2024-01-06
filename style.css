@@ -13,7 +13,7 @@ body {
 }
 
 form {
-  width: 200px;
+  width: 300px;
   margin: auto;
 }
 
@@ -34,6 +34,7 @@ input.invalid {
 .field {
   width: 100%;
   margin-top: 1rem;
+  max-width: 300px;
 }
 
 span.error {
