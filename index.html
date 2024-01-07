@@ -7,39 +7,42 @@
   </head>
   <body>
     <form novalidate id="form" action="#">
-      <div class="field">
-        <label for="email">Email: </label>
-        <input id="email" type="email">
-        <span class="error" aria-live="polite"></span>
-      </div>
-
-      <div class="field">
-        <label for="country">Country: </label>
-        <input id="country" type="text">
-        <span class="error" aria-live="polite"></span>
-      </div>
-
-      <div class="field">
-        <label for="zip">Zip Code: </label>
-        <input id="zip" type="text">
-        <span class="error" aria-live="polite"></span>
-      </div>
-
-      <div class="password-field">
+      <fieldset class="fieldset">
+        <legend class="legend">Form</legend>
         <div class="field">
-          <label for="password">Password: </label>
-          <input id="password" type="password">
-          <span id="password-error" class="error" aria-live="polite"></span>
+          <label for="email">Email: </label>
+          <input id="email" type="email">
+          <span class="error" aria-live="polite"></span>
         </div>
 
         <div class="field">
-          <label for="confirm-password">Confirm password: </label>
-          <input id="confirm-password" type="password">
-          <span id="confirm-password-error" class="error" aria-live="polite"></span>
+          <label for="country">Country: </label>
+          <input id="country" type="text">
+          <span class="error" aria-live="polite"></span>
         </div>
-      </div>
 
-      <button id="submit-btn" type="submit">Submit</button>
+        <div class="field">
+          <label for="zip">Zip Code: </label>
+          <input id="zip" type="text">
+          <span class="error" aria-live="polite"></span>
+        </div>
+
+        <div class="password-field">
+          <div class="field">
+            <label for="password">Password: </label>
+            <input id="password" type="password">
+            <span id="password-error" class="error" aria-live="polite"></span>
+          </div>
+
+          <div class="field">
+            <label for="confirm-password">Confirm password: </label>
+            <input id="confirm-password" type="password">
+            <span id="confirm-password-error" class="error" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <button class="submit-btn" id="submit-btn" type="submit">Submit</button>
+      </fieldset>
     </form>
 
     <script src="./script.js"></script>

@@ -10,11 +10,18 @@
 
 body {
   padding: 50px;
+  font-family: system-ui, sans-serif;
+  font-size: 18px;
 }
 
 form {
   width: 300px;
   margin: auto;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
 }
 
 input {
@@ -23,6 +30,7 @@ input {
   width: 100%;
   outline: none;
   border-width: 2px;
+  display: block;
 
   border-color: green;
 }
@@ -52,4 +60,22 @@ span.error {
 
 .error.active {
   padding: 0.3rem;
+}
+
+.legend {
+  background-color: #000;
+  color: #fff;
+  padding: 3px 6px;
+}
+
+.fieldset {
+  border: 2px solid #000;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 1rem auto;
+
+  font-size: inherit;
 }
