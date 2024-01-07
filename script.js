@@ -150,6 +150,7 @@ form.addEventListener('submit', (e) => {
   } else if (!checkPasswordSimilarity()) {
     confirmPasswordError.textContent = 'Passwords differ.';
   } else {
-    console.log('submitted');
+    form.classList.add('hidden');
+    document.querySelector('.confetti').classList.remove('hidden');
   }
 });

@@ -91,3 +91,14 @@ span.error {
   border-color: green;
   box-shadow: 0 0 2px green;
 }
+
+.hidden {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+.confetti {
+  text-align: center;
+  font-size: 10rem;
+}
