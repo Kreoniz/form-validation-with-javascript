@@ -32,6 +32,7 @@ input {
   border-width: 2px;
   display: block;
 
+  border-radius: 0;
   border-color: green;
 }
 
@@ -73,9 +74,20 @@ span.error {
 }
 
 .submit-btn {
+  appearance: none;
+
   width: 100%;
   padding: 0.5rem;
   margin: 1rem auto;
 
   font-size: inherit;
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #000;
+}
+
+.submit-btn:hover {
+  cursor: pointer;
+  border-color: green;
+  box-shadow: 0 0 2px green;
 }
